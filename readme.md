@@ -1,0 +1,1 @@
+<h2>Simple blog developed with Laravel</h2>
