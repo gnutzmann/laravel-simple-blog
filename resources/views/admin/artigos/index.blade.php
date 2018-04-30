@@ -28,7 +28,7 @@
 
 
 <modal nome="adicionar" titulo="Adicionar">
-    <formulario id="formAdicionar" css="" action="{{route('artigos.store')}}" method="post" enctype="" token="{{ csrf_token() }}">
+    <formulario id="formAdicionar" css="" action="{{route('artigos.store')}}" method="post" enctype="multipart/form-data" token="{{ csrf_token() }}">
 
         <div class="form-group">
             <label for="titulo">Título</label>
@@ -52,6 +52,13 @@
         <div class="form-group">
             <label for="data">Data</label>
             <input type="date" id="data" name="data" class="form-control" value="{{old('data')}}">
+        </div>
+
+        <div class="form-group">
+            <div class="custom-file">
+                <input type="file" class="custom-file-input" id="imagem" name="imagem">
+                <label class="custom-file-label" for="imagem">Selecione uma imagem</label>
+            </div>        
         </div>
     
     </formulario>
@@ -82,6 +89,13 @@
             <div class="form-group">
                 <label for="data">Data</label>
                 <input type="date" id="data" name="data" class="form-control" v-model="$store.state.item.data">
+            </div>
+
+           <div class="form-group">
+                <div class="custom-file">
+                    <input type="file" class="custom-file-input" id="imagem" name="imagem">
+                    <label class="custom-file-label" for="imagem">Selecione uma imagem</label>
+                </div>
             </div>
 
         </formulario>

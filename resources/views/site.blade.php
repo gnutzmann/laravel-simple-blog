@@ -16,7 +16,7 @@
         <div class="row">
             
             @foreach ($lista as $key => $value )
-            <artigo-card titulo="{{str_limit($value->titulo,30,'...')}}" descricao="{{str_limit($value->descricao,40,'...')}}" link="{{route('artigo',[$value->id,str_slug($value->titulo)])}}" imagem="http://via.placeholder.com/286x180" imagemcap="imagem teste" data="{{$value->data}}"
+            <artigo-card titulo="{{str_limit($value->titulo,30,'...')}}" descricao="{{str_limit($value->descricao,40,'...')}}" link="{{route('artigo',[$value->id,str_slug($value->titulo)])}}" imagem="{{Storage::url($value->image_path)}}" imagemcap="{{$value->titulo}}" data="{{$value->data}}"
                 autor="{{$value->autor}}" sm="6" md="4" xl="4" padd="2">
             </artigo-card>
             @endforeach

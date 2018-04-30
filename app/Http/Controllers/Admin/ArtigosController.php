@@ -19,34 +19,7 @@ class ArtigosController extends Controller
         $listaMigalhas = json_encode([
             ["titulo" => "Admin", "url" => route('admin')],
             ["titulo" => "Lista de artigos", "url" => ""],
-         ]);
-
-        /*
-        COMENTADO PORQUE SERÀ UTILIZADO QUERY BUILDER ABAIXO
-        //$listaArtigos = Artigo::select('id', 'titulo', 'descricao', 'user_id', 'data')->paginate(10);
-
-        //foreach ($listaArtigos as $key => $value){
-            //$value->user_id = \App\User::find($value->user_id)->name;
-
-            //Forma opcional de trazer o valor do campo relacionado
-            //$value->user_id = $value->user->name;
-            //unset($value->user);
-        //}
-        */
-
-        /* $listaArtigos = json_encode([
-        ["id" => "1", "titulo" => "PHP OO", "descricao" => "Curso de PHP OO","data" => "2017-11-20"],
-        ["id" => "2", "titulo" => "Vue JS", "descricao" => "Curso de Vue JS","data" => "2017-11-20"]
-        ]); */
-        
-
-        /*
-        $listaArtigos = DB::table('artigos')
-                            ->join('users','users.id','=','artigos.user_id')
-                            ->select('artigos.id', 'artigos.titulo', 'artigos.descricao', 'users.name', 'artigos.data')
-                            ->whereNull('deleted_at')
-                            ->paginate(10);*/
-        //O CÓDIGO ACIMA FOI REMANEJADO PARA O MODEL ARTIGO                            
+         ]);                                 
                 
         $listaArtigos = Artigo::listaArtigos(5);
 
@@ -71,8 +44,8 @@ class ArtigosController extends Controller
      */
     public function store(Request $request)
     {
-        //dd($request->all());
-
+        //dd($request->imagem);
+        
         $data = $request->all();
 
         $validacao = \Validator::make($data, [
@@ -80,13 +53,20 @@ class ArtigosController extends Controller
             "descricao" => "required",
             "conteudo" => "required",
             "data" => "required",
+            "imagem" => "mimes:jpeg,bmp,png"
         ]);
 
         if ($validacao->fails()) {
             return redirect()->back()->withErrors($validacao)->withInput();
         }
 
-        $user = auth()->user();
+        $file = $request->file('imagem');
+        $path = $file->store('public/artigos/imagens');
+        $data['image_path'] = $path;
+
+        //dd($data);
+
+        $user = auth()->user();        
         $user->artigos()->create($data);
 
         return redirect()->back();
@@ -130,13 +110,22 @@ class ArtigosController extends Controller
             "descricao" => "required",
             "conteudo" => "required",
             "data" => "required",
+            "imagem" => "mimes:jpeg,bmp,png"
         ]);
 
         if ($validacao->fails()) {
             return redirect()->back()->withErrors($validacao)->withInput();
         }
 
-        $user = auth()->user();
+        //dd($data['imagem']);
+
+        if (isset($data['imagem']) && ($data['imagem'] != "")) {
+            $file = $request->file('imagem');
+            $path = $file->store('public/artigos/imagens');
+            $data['image_path'] = $path;
+        }   
+
+        $user = auth()->user();        
         $user->artigos()->find($id)->update($data);
         return redirect()->back();
     }

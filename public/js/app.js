@@ -49841,7 +49841,7 @@ var render = function() {
                   staticClass: "btn btn-secondary",
                   attrs: { type: "button", "data-dismiss": "modal" }
                 },
-                [_vm._v("Close")]
+                [_vm._v("Fechar")]
               )
             ],
             2
@@ -50302,7 +50302,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    props: ['titulo', 'descricao', 'link', 'imgagem', 'imagemcap', 'data', 'autor', 'sm', 'md', 'xl', 'padd'],
+    props: ['titulo', 'descricao', 'link', 'imagem', 'imagemcap', 'data', 'autor', 'sm', 'md', 'xl', 'padd'],
     filters: {
         formataData: function formataData(valor) {
             if (!valor) return '';
@@ -50342,11 +50342,9 @@ var render = function() {
     [
       _c("div", { staticClass: "card" }, [
         _c("img", {
-          staticClass: "card-img-top",
-          attrs: {
-            src: "http://via.placeholder.com/286x180",
-            alt: _vm.imagemcap
-          }
+          staticClass: "card-img-top img-thumbnail",
+          staticStyle: { width: "auto", "max-height": "180px" },
+          attrs: { src: _vm.imagem, alt: _vm.imagemcap }
         }),
         _vm._v(" "),
         _c("div", { staticClass: "card-body" }, [
