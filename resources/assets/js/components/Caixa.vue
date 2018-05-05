@@ -53,7 +53,7 @@ export default {
     z-index: 5;
 }
 
-small-box h3 {
+.small-box h3 {
     font-size: 38px;
     font-weight: bold;
     margin: 0 0 10px 0;
